@@ -72,6 +72,7 @@ bin/
 gen/
 build/
 app/build/
+app/build/app.iml
 
 # Local configuration file (sdk path, etc)
 
