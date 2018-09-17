@@ -16,7 +16,7 @@ android {
         versionName project.properties['VERSION_NAME']
 
         multiDexEnabled true
-        resConfigs "zh","en" //只保留中、英文语言资源
+        resConfigs "zh", "en" //只保留中、英文语言资源
 
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
@@ -80,7 +80,7 @@ android {
             // 更改输出release版的名称
             // app_v[版本号]_[编译日期]_[release/debug].apk，例如：app_v1.0.0_2017-01-09_release.apk
             // as3.0以下配置
-           /* applicationVariants.all { variant ->  //批量修改Apk名字
+            /* applicationVariants.all { variant ->  //批量修改Apk名字
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     def fileName
@@ -96,13 +96,12 @@ android {
                 }
             }*/
 
-
             // as3.0及以上配置
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    if (!variant.buildType.isDebuggable()){
+                    if (!variant.buildType.isDebuggable()) {
                         outputFileName = "app_v${defaultConfig.versionName}_${releaseTime()}_release.apk"
-                    }else{
+                    } else {
                         outputFileName = "app_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
                     }
                 }
