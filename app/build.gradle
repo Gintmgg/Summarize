@@ -1,0 +1,128 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.example.test.summarizeapp"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode project.properties['VERSION_CODE'].toInteger()
+        versionName project.properties['VERSION_NAME']
+
+        multiDexEnabled true
+        resConfigs "zh","en" //只保留中、英文语言资源
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    // 导入so文件
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    //签名配置
+    signingConfigs {
+        debug {
+            storeFile file("${signing_certificate}")
+            storePassword "${signging_storePassword}"
+            keyAlias "${signing_keyAlias}"
+            keyPassword "${signging_certificatePassword}"
+        }
+
+        release {
+            // 当前表示build.gradle所在文件夹上三层文件夹下的BuildCfg文件夹下的配置文件（路径可以自定义）
+            storeFile file("../../../BuildCfg/${signing_certificate}")
+            storePassword "${signging_storePassword}"
+            keyAlias "${signing_keyAlias}"
+            keyPassword "${signging_certificatePassword}"
+        }
+    }
+
+    //忽略lint错误
+    lintOptions {
+        abortOnError false
+    }
+
+    // 测试环境、正式环境服务器url
+    buildTypes {
+        debug {
+            minifyEnabled false  //混淆
+
+            buildConfigField('String', 'SERVER_ADDRESS', project.properties['IP_DEBUG'])
+            buildConfigField('int', 'SOCKET_PORT', project.properties['PORT_DEBUG']);
+            signingConfig signingConfigs.debug
+        }
+
+
+        release {
+            minifyEnabled false
+
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            zipAlignEnabled true // zip align(对齐，排列)优化。
+//            shrinkResources true // 去掉没有用的资源文件
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField('String', 'SERVER_ADDRESS', project.properties['IP_RELEASE'])
+            buildConfigField('int', 'SOCKET_PORT', project.properties['PORT_RELEASE'])
+
+            // 更改输出release版的名称
+            // app_v[版本号]_[编译日期]_[release/debug].apk，例如：app_v1.0.0_2017-01-09_release.apk
+            // as3.0以下配置
+           /* applicationVariants.all { variant ->  //批量修改Apk名字
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    def fileName
+
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        if (variant.buildType.name.equals('release')) {
+                            fileName = "app_v${defaultConfig.versionName}_${releaseTime()}_release.apk"
+                        } else if (variant.buildType.name.equals('debug')) {
+                            fileName = "app_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
+                        }
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }*/
+
+
+            // as3.0及以上配置
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    if (!variant.buildType.isDebuggable()){
+                        outputFileName = "app_v${defaultConfig.versionName}_${releaseTime()}_release.apk"
+                    }else{
+                        outputFileName = "app_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
+                    }
+                }
+            }
+
+
+        }
+    }
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:support-v4:27.1.1'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.appcompat7Version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
