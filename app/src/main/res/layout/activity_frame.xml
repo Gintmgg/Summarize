@@ -6,20 +6,19 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_view_ani"
+    <ImageView
+        android:id="@+id/iv_iori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="transalte animation"
-        android:textAllCaps="false"/>
+        android:src="@drawable/bs1"
+        android:scaleType="fitXY"/>
 
     <Button
-        android:id="@+id/btn_view_set_ani"
+        android:id="@+id/btn_iori_attack"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="view animation set"
-        android:layout_marginTop="50dp"
-        android:textAllCaps="false"/>
+        android:text="放大招"/>
 
 
 </LinearLayout>

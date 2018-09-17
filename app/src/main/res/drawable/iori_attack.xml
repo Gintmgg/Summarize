@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false"
+    >
+
+    <item
+        android:drawable="@drawable/bs1"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs2"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs3"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs4"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs5"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs6"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs7"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs8"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs9"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs10"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs11"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs12"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs13"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs14"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs15"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs16"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs17"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs18"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/bs19"
+        android:duration="50"/>
+
+
+</animation-list>

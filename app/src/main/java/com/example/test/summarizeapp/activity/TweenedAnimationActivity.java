@@ -1,4 +1,4 @@
-package com.example.test.summarizeapp.fragment;
+package com.example.test.summarizeapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.test.summarizeapp.R;
 
-public class ViewAnimationActivity extends AppCompatActivity {
+public class TweenedAnimationActivity extends AppCompatActivity {
 
     private Button btnTranslate;
     private Button btnSet;
@@ -31,7 +31,7 @@ public class ViewAnimationActivity extends AppCompatActivity {
     private View.OnClickListener translateClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Animation translateAnim = AnimationUtils.loadAnimation(ViewAnimationActivity.this, R.anim.translate_animation);
+            Animation translateAnim = AnimationUtils.loadAnimation(TweenedAnimationActivity.this, R.anim.translate_animation);
             btnTranslate.startAnimation(translateAnim);
         }
     };
@@ -39,7 +39,7 @@ public class ViewAnimationActivity extends AppCompatActivity {
     private View.OnClickListener viewSetClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Animation setAnimation = AnimationUtils.loadAnimation(ViewAnimationActivity.this, R.anim.view_set_animation);
+            Animation setAnimation = AnimationUtils.loadAnimation(TweenedAnimationActivity.this, R.anim.view_set_animation);
             btnSet.startAnimation(setAnimation);
         }
     };
